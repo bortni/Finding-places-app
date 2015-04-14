@@ -1,9 +1,13 @@
 package com.my.test_estonia;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -22,19 +26,34 @@ public class MapsActivity extends Activity {
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                new RoadBuilderTask(MapsActivity.this, gMap).execute();
-                btnWhere.setVisibility(View.VISIBLE);
+                if (isNetworkConnected(MapsActivity.this)) {
+                    new RoadBuilderTask(MapsActivity.this, gMap).execute();
+                    btnWhere.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(MapsActivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnWhere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PlacesTask(MapsActivity.this, gMap).execute();
+                if (isNetworkConnected(MapsActivity.this)) {
+                    new PlacesTask(MapsActivity.this, gMap).execute();
+                } else {
+                    Toast.makeText(MapsActivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+
+    }
+
+    private boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if (ni == null) return false;
+        else return true;
     }
 }
 
