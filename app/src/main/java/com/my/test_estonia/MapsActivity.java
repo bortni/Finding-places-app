@@ -34,7 +34,6 @@ public class MapsActivity extends Activity {
                 }
             }
         });
-
         btnWhere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,10 +44,15 @@ public class MapsActivity extends Activity {
                 }
             }
         });
-
-
     }
 
+    /**
+     * Method for NetworkInfo
+     * Taking Activity context - @param context
+     *
+     * @param context
+     * @return true - network is avialable
+     */
     private boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();

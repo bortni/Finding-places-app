@@ -29,23 +29,45 @@ public class RoadBuilderTask extends AsyncTask<Void, Integer, Boolean> {
     private static final String TOAST_ERR_MAJ = "Impossible to trace Itinerary";
     private Context context;
     private GoogleMap gMap;
-    private final ArrayList<LatLng> lstLatLng = new ArrayList<LatLng>();
+    private final ArrayList<LatLng> lstLatLng = new ArrayList<>();
 
+    /**
+     * Provide constructor to get Activity context - @param context
+     * Take object of google map - @param gMap.
+     *
+     * @param context
+     * @param gMap
+     */
     public RoadBuilderTask(final Context context, final GoogleMap gMap) {
         this.context = context;
         this.gMap = gMap;
     }
 
+    /**
+     * Start of getting actual information
+     * Provide with Toast - Calculating
+     */
     @Override
     protected void onPreExecute() {
         Toast.makeText(context, TOAST_MSG, Toast.LENGTH_SHORT).show();
     }
 
-
+    /**
+     * Need doInBackground to make REST with GOOGLE API DIRECTIONS, it help to get JSON from URL.
+     * Need to get URL http://maps.googleapis.com/maps/api/directions/json?sensor=false&language=en&origin=Narva&destination=Tallin
+     * where set required cities. In origin - Narva and destination - Tallin.
+     * Then get JSON from URL and parse it.
+     * Main purpose is get String field - points from JSONObject polyline.
+     * Then decode it with method decodePolylines.
+     *
+     * @param params
+     * @return true  if getting results - success
+     */
     @Override
     protected Boolean doInBackground(Void... params) {
-        JSONObject json = null;
+        JSONObject json;
         String str = "";
+        String status;
         HttpResponse response;
         try {
             final String url = "http://maps.googleapis.com/maps/api/directions/json?sensor=false&language=en&origin=Narva&destination=Tallin";
@@ -59,7 +81,7 @@ public class RoadBuilderTask extends AsyncTask<Void, Integer, Boolean> {
                 e.printStackTrace();
             }
             json = new JSONObject(str);
-            final String status = json.optString("status");
+            status = json.optString("status");
             if (!"OK".equals(status)) {
                 return false;
             }
@@ -75,6 +97,14 @@ public class RoadBuilderTask extends AsyncTask<Void, Integer, Boolean> {
         }
     }
 
+    /**
+     * Get String field points from JSONObject polylines in encoded view.
+     * Decode it to get coordinates - latitude and longitude.
+     * Add in ArrayList to store them.
+     *
+     * @param encodedPoints
+     * @see java.util.ArrayList
+     */
     private void decodePolylines(final String encodedPoints) {
         int index = 0;
         int lat = 0, lng = 0;
@@ -100,6 +130,18 @@ public class RoadBuilderTask extends AsyncTask<Void, Integer, Boolean> {
         }
     }
 
+    /**
+     * Last execute of background process.
+     * Taking @param boolean result when real information from URL and ArrayList with points exists,
+     * true - exists, false - message with error.
+     * Building route - line, with help of gMap method addPolyline,
+     * taking polylines from ArrayList of points, and draw line with help of coordinates
+     * Set the markers with coordinates of origin place and destination place on gMap.
+     * Move and Zoom Camera(Focus) with gMap method CameraUpdateFactory
+     * Choosing color for all drawable elements.
+     *
+     * @param result
+     */
     @Override
     protected void onPostExecute(final Boolean result) {
         if (!result) {
