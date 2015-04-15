@@ -103,7 +103,7 @@ public class PlacesParser {
      * Getting Facebook likes
      * Get JSON from URL with help of graph.facebook.com
      * Provide URL "https://graph.facebook.com/" + newName + "?fields=likes&access_token=" + URLEncoder.encode(FB_KEY + "|" + FB_SECRET_KEY, "UTF-8"
-     * Get name from JSON of PLACES API for likes parsing, filter it to find in graph.facebook.com, record this is newName
+     * Get name from JSON of PLACES API for likes parsing, filter it to find in graph.facebook.com, record this in newName
      * make JSON filter to make query faster - fields=likes
      * Adding access_token in this way release_key|secret_key, use URLEncoder to get this symbol "|" in UTF-8
      * Parse JSON and get num of likes in int
