@@ -59,7 +59,7 @@ public class PlacesTask extends AsyncTask<Void, Integer, List<HashMap<String, St
      *
      * @param params
      * @return in List<HashMap> googlePlacesList
-     * @see com.my.test_estonia.PlacesParser
+     * @see PlacesFbParser
      */
     @Override
     protected List<HashMap<String, String>> doInBackground(Void... params) {
@@ -67,7 +67,7 @@ public class PlacesTask extends AsyncTask<Void, Integer, List<HashMap<String, St
         String str = "";
         HttpResponse response;
         List<HashMap<String, String>> googlePlacesList;
-        PlacesParser placeJsonParser = new PlacesParser();
+        PlacesFbParser placeJsonParser = new PlacesFbParser();
         try {
             final String url = "https://maps.googleapis.com/maps/api/place/search/json?location=" + latitude + "," + longtitude + "&radius=5000&types=restaurant&sensor=true&key=" + GOOGLE_KEY;
             HttpClient myClient = new DefaultHttpClient();

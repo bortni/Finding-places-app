@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PlacesParser {
+public class PlacesFbParser {
     final String FB_KEY = "1654311001459443";
     final String FB_SECRET_KEY = "6ac98fe6fb7925b337dae35f4f701000";
 
