@@ -22,7 +22,6 @@ import java.util.List;
 
 
 public class PlacesTask extends AsyncTask<Void, Integer, List<HashMap<String, String>>> {
-    private static final String TOAST_MSG = "Scanning";
     final String GOOGLE_KEY = "AIzaSyC7diRPdlsoo__jVA4wGSGYm30Ya6Pd2nI";
     final String latitude = "59.365455";
     final String longtitude = "26.432159";
@@ -47,7 +46,7 @@ public class PlacesTask extends AsyncTask<Void, Integer, List<HashMap<String, St
      */
     @Override
     protected void onPreExecute() {
-        Toast.makeText(context, TOAST_MSG, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.process_scanning), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -99,20 +98,23 @@ public class PlacesTask extends AsyncTask<Void, Integer, List<HashMap<String, St
      */
     @Override
     protected void onPostExecute(List<HashMap<String, String>> list) {
-        for (int i = 0; i < list.size(); i++) {
-            MarkerOptions markerOptions = new MarkerOptions();
-            HashMap<String, String> googlePlace = list.get(i);
-
-            if (!googlePlace.isEmpty()) {
-                double lat = Double.parseDouble(googlePlace.get("lat"));
-                double lng = Double.parseDouble(googlePlace.get("lng"));
-                String placeName = googlePlace.get("place_name");
-                LatLng latLng = new LatLng(lat, lng);
-                markerOptions.position(latLng);
-                markerOptions.title(placeName + "." + " " + " Facebook likes:" + googlePlace.get("likes"));
-                gMap.addMarker(markerOptions);
-                gMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                gMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+        if (list.isEmpty()) {
+            Toast.makeText(context, context.getString(R.string.error_parse_place), Toast.LENGTH_SHORT).show();
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                HashMap<String, String> googlePlace = list.get(i);
+                if (!googlePlace.isEmpty()) {
+                    double lat = Double.parseDouble(googlePlace.get("lat"));
+                    double lng = Double.parseDouble(googlePlace.get("lng"));
+                    String placeName = googlePlace.get("place_name");
+                    LatLng latLng = new LatLng(lat, lng);
+                    markerOptions.position(latLng);
+                    markerOptions.title(placeName + "." + " " + " Facebook likes:" + googlePlace.get("likes"));
+                    gMap.addMarker(markerOptions);
+                    gMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    gMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+                }
             }
         }
     }

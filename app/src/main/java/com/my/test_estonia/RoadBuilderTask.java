@@ -25,8 +25,6 @@ import java.util.ArrayList;
 
 
 public class RoadBuilderTask extends AsyncTask<Void, Integer, Boolean> {
-    private static final String TOAST_MSG = "Calculating";
-    private static final String TOAST_ERR_MAJ = "Impossible to trace Itinerary";
     private Context context;
     private GoogleMap gMap;
     private final ArrayList<LatLng> lstLatLng = new ArrayList<>();
@@ -49,7 +47,7 @@ public class RoadBuilderTask extends AsyncTask<Void, Integer, Boolean> {
      */
     @Override
     protected void onPreExecute() {
-        Toast.makeText(context, TOAST_MSG, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.process_calculating), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -145,7 +143,7 @@ public class RoadBuilderTask extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected void onPostExecute(final Boolean result) {
         if (!result) {
-            Toast.makeText(context, TOAST_ERR_MAJ, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.error_build_road), Toast.LENGTH_SHORT).show();
         } else {
             final PolylineOptions polylines = new PolylineOptions();
             polylines.color(Color.BLUE);

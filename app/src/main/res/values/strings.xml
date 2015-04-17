@@ -8,4 +8,8 @@
     <string name="error_internet_connection">Check your connection</string>
     <string name="button_text_go">Go</string>
     <string name="button_text_where_stop">Where to stop</string>
+    <string name="error_build_road">Impossible to build polylines</string>
+    <string name="process_calculating">Calculating</string>
+    <string name="error_parse_place">Error with parsing places</string>
+    <string name="process_scanning">Scanning</string>
 </resources>
