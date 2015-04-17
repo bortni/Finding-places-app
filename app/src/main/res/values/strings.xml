@@ -6,4 +6,6 @@
        AIzaSyCpdVwJpHHjXHpkiKoT6kIVediOBbU4QCc
     </string>
     <string name="error_internet_connection">Check your connection</string>
+    <string name="button_text_go">Go</string>
+    <string name="button_text_where_stop">Where to stop</string>
 </resources>
