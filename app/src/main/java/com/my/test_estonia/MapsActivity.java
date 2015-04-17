@@ -30,7 +30,7 @@ public class MapsActivity extends Activity {
                     new RoadBuilderTask(MapsActivity.this, gMap).execute();
                     btnWhere.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(MapsActivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapsActivity.this, getString(R.string.error_internet_connection), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -40,7 +40,7 @@ public class MapsActivity extends Activity {
                 if (isNetworkConnected(MapsActivity.this)) {
                     new PlacesTask(MapsActivity.this, gMap).execute();
                 } else {
-                    Toast.makeText(MapsActivity.this, "Check your connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapsActivity.this, getString(R.string.error_internet_connection), Toast.LENGTH_SHORT).show();
                 }
             }
         });
