@@ -12,4 +12,5 @@
     <string name="process_calculating">Calculating</string>
     <string name="error_parse_place">Error with parsing places</string>
     <string name="process_scanning">Scanning</string>
+    <string name="facebook_likes">" Facebook likes:"</string>
 </resources>

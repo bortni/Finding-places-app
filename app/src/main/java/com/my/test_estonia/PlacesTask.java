@@ -110,7 +110,7 @@ public class PlacesTask extends AsyncTask<Void, Integer, List<HashMap<String, St
                     String placeName = googlePlace.get("place_name");
                     LatLng latLng = new LatLng(lat, lng);
                     markerOptions.position(latLng);
-                    markerOptions.title(placeName + "." + " " + " Facebook likes:" + googlePlace.get("likes"));
+                    markerOptions.title(placeName + "." + " " + context.getString(R.string.facebook_likes) + googlePlace.get("likes"));
                     gMap.addMarker(markerOptions);
                     gMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     gMap.animateCamera(CameraUpdateFactory.zoomTo(12));
